@@ -5,8 +5,24 @@ on:
     # The "types" keyword specifies a list of activity types from the pull_request event which triggers the workflow
     types:
       - opened
+    # Filter Event 1 based on pull requests on specific branches
+    branches:
+      # Only pushes to the branches defined in the list trigger the workflow
+      - main
+      - 'dev-*' # dev-new dev-this-is-new
+      - 'feature/**' # feature/new feature/new/button
   # Event 2
   workflow_dispatch:
+  # Event 3
+  push:
+    # Filter Event 3 based on pushing to specific branches but which did not change any files in the specified folder defined in paths-ignore
+    branches:
+      # Only pushes to the branches defined in the list trigger the workflow
+      - main
+      - 'dev-*' # dev-new dev-this-is-new
+      - 'feature/**' # feature/new feature/new/button
+    paths-ignore:
+      - '.github/workflows/*'
 jobs:
   deploy:
     runs-on: ubuntu-latest
